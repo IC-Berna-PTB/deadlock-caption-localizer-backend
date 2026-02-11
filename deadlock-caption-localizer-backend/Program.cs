@@ -2,9 +2,11 @@
 
 using System.CommandLine;
 using deadlock_caption_localizer_backend;
+using Duper;
 using SteamDatabase.ValvePak;
 using ValveResourceFormat;
 using ValveResourceFormat.IO;
+using ValveResourceFormat.Serialization.KeyValues;
 using KVObject = ValveResourceFormat.Serialization.KeyValues.KVObject;
 
 var rootCommand = new RootCommand("Deadlock Caption Localizer Backend");
@@ -26,20 +28,41 @@ rootCommand.Options.Add(runModeOption);
 Option<string> voiceFileOption = new("--voice-file");
 rootCommand.Options.Add(voiceFileOption);
 
+Option<String> deadlockPathOption = new("--deadlock-path");
+rootCommand.Options.Add(deadlockPathOption);
+
 var results = rootCommand.Parse(args);
 
 var deadlock = GameFolderLocator.FindSteamGameByAppId(results.GetValue(deadlockAppIdOption));
+var deadlockPath = "";
+
 if (!deadlock.HasValue)
 {
-    Console.Error.WriteLine("Could not find Deadlock installed in the system.");
-    return 1;
+    if (results.GetValue(deadlockPathOption) is null)
+    {
+        Console.Error.WriteLine("Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
+        return 1;
+    }
+    deadlockPath = results.GetValue(deadlockPathOption);
+}
+else
+{
+    deadlockPath = deadlock.Value.GamePath;
 }
 
-var deadlockPath = deadlock.Value.GamePath;
+
+
 var vpkPath = Path.Join(deadlockPath, "game/citadel/pak01_dir.vpk");
+
+if (!Path.Exists(vpkPath))
+{
+   Console.Error.WriteLine($"There's no file in {vpkPath}!");
+   return 2;
+}
+
 var vpk = new Package();
 vpk.Read(vpkPath);
-using var fileLoader = new GameFileLoader(vpk, vpk.FileName);
+var fileLoader = new NullFileLoader();
 
 if (results.GetRequiredValue<string>(runModeOption).Equals("convo"))
 {
@@ -53,7 +76,7 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
     var stream = vpk.GetMemoryMappedStreamIfPossible(entry);
     resource.Read(stream);
     var contentFile = FileExtract.Extract(resource, fileLoader);
-    var kv3 = ValveResourceFormat.Serialization.KeyValues.KeyValues3.ParseKVFile(new MemoryStream(contentFile.Data!));
+    var kv3 = KeyValues3.ParseKVFile(new MemoryStream(contentFile.Data!));
 
     var actors = kv3.Root.GetProperty<KVObject>("actors");
     var dialogs = actors.SelectMany(a => Dialog.FromKvObject((a.Value) as KVObject)).Aggregate(
@@ -68,5 +91,5 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
 
 var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
 
-convos.ForEach(c => File.WriteAllText(Path.ChangeExtension(c.Name, "toml"), Tomlyn.Toml.FromModel(c)));
+Console.Write(DuperSerializer.Serialize(new {Conversations = convos}));
 return 0;
