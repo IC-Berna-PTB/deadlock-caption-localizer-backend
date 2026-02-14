@@ -1,12 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.CommandLine;
+using System.Text.Json;
 using deadlock_caption_localizer_backend;
 using Duper;
 using SteamDatabase.ValvePak;
 using ValveResourceFormat;
 using ValveResourceFormat.IO;
 using ValveResourceFormat.Serialization.KeyValues;
+using static System.Text.Json.JsonSerializer;
 using KVObject = ValveResourceFormat.Serialization.KeyValues.KVObject;
 
 var rootCommand = new RootCommand("Deadlock Caption Localizer Backend");
@@ -91,5 +93,7 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
 
 var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
 
-Console.Write(DuperSerializer.Serialize(new {Conversations = convos}));
+Console.Write(Serialize(new ConversationsRecord(Conversations: convos),
+    typeof(ConversationsRecord),
+    SourceGenerationContext.Default));
 return 0;
