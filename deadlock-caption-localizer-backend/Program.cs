@@ -66,11 +66,39 @@ var vpk = new Package();
 vpk.Read(vpkPath);
 var fileLoader = new NullFileLoader();
 
-if (results.GetRequiredValue<string>(runModeOption).Equals("convo"))
+return results.GetRequiredValue(runModeOption) switch
 {
-    
+    "convo" => RunConvo(),
+    "vo" => RunVo(),
+    _ => 3
+};
+
+int RunConvo()
+{
+    var entries = vpk.Entries!["vcd_c"];
+    var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
+    Console.Write(Serialize(new ConversationsRecord(Conversations: convos),
+        typeof(ConversationsRecord),
+        SourceGenerationContext.Default));
+    return 0;
 }
-var entries = vpk.Entries!["vcd_c"];
+
+int RunVo()
+{
+    var requestedVoiceFile = results.GetRequiredValue(voiceFileOption);
+    var soundFiles = vpk.Entries!["vsnd_c"];
+    var file = soundFiles.First(s => requestedVoiceFile.StartsWith(Path.GetFileNameWithoutExtension(s.FileName)));
+    var stream = vpk.GetMemoryMappedStreamIfPossible(file);
+    using var resource = new Resource();
+    resource.Read(stream);
+    var contentFile = FileExtract.Extract(resource, fileLoader);
+    if (contentFile.Data is null)
+    {
+        return 4;
+    }
+    Console.OpenStandardOutput().Write(contentFile.Data);
+    return 0;
+}
 
 static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoader fileLoader)
 {
@@ -90,10 +118,3 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
         });
     return new Conversation(Path.GetFileNameWithoutExtension(entry.FileName), dialogs);
 }
-
-var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
-
-Console.Write(Serialize(new ConversationsRecord(Conversations: convos),
-    typeof(ConversationsRecord),
-    SourceGenerationContext.Default));
-return 0;
