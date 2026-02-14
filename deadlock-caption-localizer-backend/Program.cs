@@ -1,13 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.CommandLine;
-using System.Text.Json;
 using deadlock_caption_localizer_backend;
-using Duper;
 using SteamDatabase.ValvePak;
 using ValveResourceFormat;
 using ValveResourceFormat.IO;
+using ValveResourceFormat.ResourceTypes;
 using ValveResourceFormat.Serialization.KeyValues;
+using ValveResourceFormat.TextureDecoders;
 using static System.Text.Json.JsonSerializer;
 using KVObject = ValveResourceFormat.Serialization.KeyValues.KVObject;
 
@@ -30,7 +30,10 @@ rootCommand.Options.Add(runModeOption);
 Option<string> voiceFileOption = new("--voice-file");
 rootCommand.Options.Add(voiceFileOption);
 
-Option<String> deadlockPathOption = new("--deadlock-path");
+Option<string> heroCodeOption = new("--hero-code");
+rootCommand.Options.Add(heroCodeOption);
+
+Option<string> deadlockPathOption = new("--deadlock-path");
 rootCommand.Options.Add(deadlockPathOption);
 
 var results = rootCommand.Parse(args);
@@ -70,8 +73,32 @@ return results.GetRequiredValue(runModeOption) switch
 {
     "convo" => RunConvo(),
     "vo" => RunVo(),
+    "mugshot" => RunMugshot(),
     _ => 3
 };
+
+int RunMugshot()
+{
+    var entries = vpk.Entries!["vtex_c"];
+    var file = entries.First(e => e.GetFullPath()
+        .Equals($"panorama/images/heroes/{results.GetRequiredValue(heroCodeOption)}_sm_psd.vtex_c"));
+    var stream = vpk.GetMemoryMappedStreamIfPossible(file);
+    using var resource = new Resource();
+    resource.FileName = file.GetFullPath();
+    resource.Read(stream);
+    if (resource.DataBlock! is not Texture)
+    {
+        return 4;
+    }
+
+    var contentFile = new TextureExtract(resource)
+    {
+        DecodeFlags = TextureCodec.Auto
+    }.ToContentFile();
+    var png = contentFile.SubFiles[0].Extract?.Invoke();
+    Console.OpenStandardOutput().Write(png);
+    return 0;
+}
 
 int RunConvo()
 {
