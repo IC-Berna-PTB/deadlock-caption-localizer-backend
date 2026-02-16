@@ -1,0 +1,55 @@
+diff --git a/deadlock-caption-localizer-backend.sln.DotSettings.user b/deadlock-caption-localizer-backend.sln.DotSettings.user
+index 5cb2ad3..f1e3aad 100644
+--- a/deadlock-caption-localizer-backend.sln.DotSettings.user
++++ b/deadlock-caption-localizer-backend.sln.DotSettings.user
+@@ -1,6 +1,8 @@
+ ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+ 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AArgumentNullException_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F24203f6f291c4df2afda94f6961584d4dba600_003F01_003F38db218a_003FArgumentNullException_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+ 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ABinaryKV3_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FSourcesCache_003F74a8c54aad39b42e3b1414853cb69c3021d8b92d9123c7e65de0b62eeb79c4_003FBinaryKV3_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
++	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AFileExtract_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FSourcesCache_003F1be5113c1332b6477b2a69997e467967719f50add6f78eb26aed6976d3a55_003FFileExtract_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
++	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AGameFileLoader_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fb686f6bd89dad1d8563813cc981debb2276351126324e69e2447c2cdaed97df_003FGameFileLoader_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+ 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ASymbolResult_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FSourcesCache_003F43e6b55865ebc8ae58b391cc5f658f5cb0c48969db96f348da3816aeb8b1e5_003FSymbolResult_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+ 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThrowHelper_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F24203f6f291c4df2afda94f6961584d4dba600_003F5e_003F832c6960_003FThrowHelper_002Ecs_002Fz_003A2_002D1/@EntryIndexedValue">ForceIncluded</s:String>
+ 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThrowHelper_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fc0574d283dce41aa9cf764089915ad5183800_003F80_003Fe33f4212_003FThrowHelper_002Ecs/@EntryIndexedValue">ForceIncluded</s:String></wpf:ResourceDictionary>
+\ No newline at end of file
+diff --git a/deadlock-caption-localizer-backend/Program.cs b/deadlock-caption-localizer-backend/Program.cs
+index 7ae4548..00fa1fd 100644
+--- a/deadlock-caption-localizer-backend/Program.cs
++++ b/deadlock-caption-localizer-backend/Program.cs
+@@ -2,6 +2,7 @@
+ 
+ using System.CommandLine;
+ using deadlock_caption_localizer_backend;
++using Duper;
+ using SteamDatabase.ValvePak;
+ using ValveResourceFormat;
+ using ValveResourceFormat.IO;
+@@ -39,7 +40,7 @@ var deadlockPath = deadlock.Value.GamePath;
+ var vpkPath = Path.Join(deadlockPath, "game/citadel/pak01_dir.vpk");
+ var vpk = new Package();
+ vpk.Read(vpkPath);
+-using var fileLoader = new GameFileLoader(vpk, vpk.FileName);
++var fileLoader = new NullFileLoader();
+ 
+ if (results.GetRequiredValue<string>(runModeOption).Equals("convo"))
+ {
+@@ -68,5 +69,5 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
+ 
+ var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
+ 
+-convos.ForEach(c => File.WriteAllText(Path.ChangeExtension(c.Name, "toml"), Tomlyn.Toml.FromModel(c)));
++Console.Write(Duper.DuperSerializer.Serialize(new {Conversations = convos}));
+ return 0;
+\ No newline at end of file
+diff --git a/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj b/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj
+index 2e0e5a0..1658b36 100644
+--- a/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj
++++ b/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj
+@@ -9,6 +9,7 @@
+     </PropertyGroup>
+ 
+     <ItemGroup>
++      <PackageReference Include="EpicEric.Duper" Version="0.0.7" />
+       <PackageReference Include="System.CommandLine" Version="2.0.2" />
+       <PackageReference Include="Tomlyn" Version="0.20.0" />
+       <PackageReference Include="ValvePak" Version="4.0.0.142" />

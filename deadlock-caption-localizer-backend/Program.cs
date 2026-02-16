@@ -23,7 +23,6 @@ rootCommand.Options.Add(deadlockAppIdOption);
 Option<string> runModeOption = new("--run-mode")
 {
     Description = "Run mode",
-    // Required = true,
 };
 rootCommand.Options.Add(runModeOption);
 
@@ -36,23 +35,31 @@ rootCommand.Options.Add(heroCodeOption);
 Option<string> deadlockPathOption = new("--deadlock-path");
 rootCommand.Options.Add(deadlockPathOption);
 
-var results = rootCommand.Parse(args);
+var argResults = rootCommand.Parse(args);
 
-var deadlock = GameFolderLocator.FindSteamGameByAppId(results.GetValue(deadlockAppIdOption));
+var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
 var deadlockPath = "";
+
+var runMode = argResults.GetRequiredValue(runModeOption);
+
 
 if (!deadlock.HasValue)
 {
-    if (results.GetValue(deadlockPathOption) is null)
+    if (argResults.GetValue(deadlockPathOption) is null || runMode.Equals("autofolder"))
     {
         Console.Error.WriteLine("Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
         return 1;
     }
-    deadlockPath = results.GetValue(deadlockPathOption);
+    deadlockPath = argResults.GetValue(deadlockPathOption);
 }
 else
 {
     deadlockPath = deadlock.Value.GamePath;
+    if (runMode.Equals("autofolder"))
+    {
+        Console.Write(deadlockPath);
+        return 0;
+    }
 }
 
 
@@ -69,19 +76,28 @@ var vpk = new Package();
 vpk.Read(vpkPath);
 var fileLoader = new NullFileLoader();
 
-return results.GetRequiredValue(runModeOption) switch
+return runMode switch
 {
     "convo" => RunConvo(),
     "vo" => RunVo(),
     "mugshot" => RunMugshot(),
+    "autofolder" => RunAutoFolder(),
     _ => 3
 };
+
+int RunAutoFolder()
+{
+    if (deadlock == null) return 1;
+    Console.Write(deadlock.Value.GamePath);
+    return 0;
+
+}
 
 int RunMugshot()
 {
     var entries = vpk.Entries!["vtex_c"];
     var file = entries.First(e => e.GetFullPath()
-        .Equals($"panorama/images/heroes/{results.GetRequiredValue(heroCodeOption)}_sm_psd.vtex_c"));
+        .Equals($"panorama/images/heroes/{argResults.GetRequiredValue(heroCodeOption)}_sm_psd.vtex_c"));
     var stream = vpk.GetMemoryMappedStreamIfPossible(file);
     using var resource = new Resource();
     resource.FileName = file.GetFullPath();
@@ -112,7 +128,7 @@ int RunConvo()
 
 int RunVo()
 {
-    var requestedVoiceFile = results.GetRequiredValue(voiceFileOption);
+    var requestedVoiceFile = argResults.GetRequiredValue(voiceFileOption);
     var soundFiles = vpk.Entries!["vsnd_c"];
     var file = soundFiles.First(s => requestedVoiceFile.StartsWith(Path.GetFileNameWithoutExtension(s.FileName)));
     var stream = vpk.GetMemoryMappedStreamIfPossible(file);
