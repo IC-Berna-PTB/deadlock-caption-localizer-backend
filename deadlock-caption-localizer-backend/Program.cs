@@ -37,44 +37,7 @@ rootCommand.Options.Add(deadlockPathOption);
 
 var argResults = rootCommand.Parse(args);
 
-var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
-var deadlockPath = "";
-
 var runMode = argResults.GetRequiredValue(runModeOption);
-
-
-if (!deadlock.HasValue)
-{
-    if (argResults.GetValue(deadlockPathOption) is null || runMode.Equals("autofolder"))
-    {
-        Console.Error.WriteLine("Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
-        return 1;
-    }
-    deadlockPath = argResults.GetValue(deadlockPathOption);
-}
-else
-{
-    deadlockPath = deadlock.Value.GamePath;
-    if (runMode.Equals("autofolder"))
-    {
-        Console.Write(deadlockPath);
-        return 0;
-    }
-}
-
-
-
-var vpkPath = Path.Join(deadlockPath, "game/citadel/pak01_dir.vpk");
-
-if (!Path.Exists(vpkPath))
-{
-   Console.Error.WriteLine($"There's no file in {vpkPath}!");
-   return 2;
-}
-
-var vpk = new Package();
-vpk.Read(vpkPath);
-var fileLoader = new NullFileLoader();
 
 return runMode switch
 {
@@ -82,19 +45,63 @@ return runMode switch
     "vo" => RunVo(),
     "mugshot" => RunMugshot(),
     "autofolder" => RunAutoFolder(),
+    "validatefolder" => RunValidateFolder(),
     _ => 3
 };
 
+int RunValidateFolder()
+{
+    var (_, _) = GetVpk(argResults, tryAutoFind: false);
+    return 0;
+}
+
+(Package, IFileLoader) GetVpk(ParseResult argResults, bool tryAutoFind = true)
+{
+    var deadlockPath = "";
+
+    if (argResults.GetValue(deadlockPathOption) is not null)
+    {
+        deadlockPath = argResults.GetValue(deadlockPathOption);
+    }
+    else if (tryAutoFind)
+    {
+        var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
+        if (deadlock.HasValue)
+        {
+            deadlockPath = deadlock.Value.GamePath;
+        }
+    }
+
+    if (string.IsNullOrEmpty(deadlockPath))
+    {
+        throw new FileNotFoundException(
+            "Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
+    }
+
+    var vpkPath = Path.Join(deadlockPath, "game/citadel/pak01_dir.vpk");
+
+    if (!Path.Exists(vpkPath))
+    {
+        throw new FileNotFoundException($"Could not find VPK file at {vpkPath}");
+    }
+
+    var vpk = new Package();
+    vpk.Read(vpkPath);
+    var fileLoader = new NullFileLoader();
+    return (vpk, fileLoader);
+}
+
 int RunAutoFolder()
 {
+    var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
     if (deadlock == null) return 1;
     Console.Write(deadlock.Value.GamePath);
     return 0;
-
 }
 
 int RunMugshot()
 {
+    var (vpk, _) = GetVpk(argResults);
     var entries = vpk.Entries!["vtex_c"];
     var file = entries.First(e => e.GetFullPath()
         .Equals($"panorama/images/heroes/{argResults.GetRequiredValue(heroCodeOption)}_sm_psd.vtex_c"));
@@ -118,6 +125,7 @@ int RunMugshot()
 
 int RunConvo()
 {
+    var (vpk, fileLoader) = GetVpk(argResults);
     var entries = vpk.Entries!["vcd_c"];
     var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
     Console.Write(Serialize(new ConversationsRecord(Conversations: convos),
@@ -128,6 +136,7 @@ int RunConvo()
 
 int RunVo()
 {
+    var (vpk, fileLoader) = GetVpk(argResults);
     var requestedVoiceFile = argResults.GetRequiredValue(voiceFileOption);
     var soundFiles = vpk.Entries!["vsnd_c"];
     var file = soundFiles.First(s => requestedVoiceFile.StartsWith(Path.GetFileNameWithoutExtension(s.FileName)));
@@ -139,6 +148,7 @@ int RunVo()
     {
         return 4;
     }
+
     Console.OpenStandardOutput().Write(contentFile.Data);
     return 0;
 }
@@ -156,7 +166,7 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
         new List<Dialog>(),
         (list, dialog) =>
         {
-            list.Add( dialog);
+            list.Add(dialog);
             return list;
         });
     return new Conversation(Path.GetFileNameWithoutExtension(entry.FileName), dialogs);
