@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36c32957-fc23-4404-995b-c65621846fd3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patch.patch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +33,9 @@
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Conversation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Dialog.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -45,26 +45,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.deadlock-caption-localizer-backend.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.40381283&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;grid.search.filter.rows&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.deadlock-caption-localizer-backend.executor": "Run",
+    "HTTP Request.rest-api_1 | #1.executor": "Run",
+    "HTTP Request.rest-api_1 | #2.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "XThreadsFramesViewSplitterKey": "0.40381283",
+    "git-widget-placeholder": "main",
+    "grid.search.filter.rows": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationStatuses">
+      <map>
+        <entry key="HttpClient.HttpRequestRunConfigurationType">
+          <value>
+            <map>
+              <entry key="rest-api_1 | #1" value="STOPPED" />
+              <entry key="rest-api_1 | #2" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected=".NET Project.deadlock-caption-localizer-backend">
     <configuration name="deadlock-caption-localizer-backend" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Debug/net10.0/deadlock-caption-localizer-backend" />
-      <option name="PROGRAM_PARAMETERS" value="--run-mode convo" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Debug/net10.0" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Release/net10.0/deadlock-caption-localizer-backend" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Release/net10.0" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
@@ -82,6 +98,23 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="rest-api_1 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_1.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="rest-api_1 | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_1.http" executionIdentifier="#2" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue=".NET Project.deadlock-caption-localizer-backend" />
+      <item itemvalue="HTTP Request.rest-api_1 | #1" />
+      <item itemvalue="HTTP Request.rest-api_1 | #2" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.rest-api_1 | #2" />
+        <item itemvalue="HTTP Request.rest-api_1 | #1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -91,6 +124,7 @@
       <option name="presentableId" value="Default" />
       <updated>1770725823026</updated>
       <workItem from="1770725824906" duration="15607000" />
+      <workItem from="1772625591683" duration="2801000" />
     </task>
     <task id="LOCAL-00001" summary="Versão inicial?">
       <option name="closed" value="true" />
@@ -100,7 +134,23 @@
       <option name="project" value="LOCAL" />
       <updated>1770735022675</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add autofolder mode.">
+      <option name="closed" value="true" />
+      <created>1771206807069</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1771206807069</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add validatefolder">
+      <option name="closed" value="true" />
+      <created>1771244851538</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1771244851538</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,7 +161,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Versão inicial?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Versão inicial?" />
+    <MESSAGE value="Add autofolder mode." />
+    <MESSAGE value="Add validatefolder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add validatefolder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -128,19 +180,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs</url>
-          <line>71</line>
-          <properties documentPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" containingFunctionPresentation="">
-            <startOffsets>
-              <option value="2088" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2097" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43957861852e43b1871cb84733f680defc00/96/9e8de9ae/DuperSerializer.cs</url>
           <line>414</line>

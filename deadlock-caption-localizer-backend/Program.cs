@@ -1,6 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.CommandLine;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
 using deadlock_caption_localizer_backend;
 using SteamDatabase.ValvePak;
 using ValveResourceFormat;
@@ -13,16 +16,19 @@ using KVObject = ValveResourceFormat.Serialization.KeyValues.KVObject;
 
 var rootCommand = new RootCommand("Deadlock Caption Localizer Backend");
 
+const int defaultAppid = 1422450;
+
 Option<int> deadlockAppIdOption = new("--deadlock-app-id")
 {
     Description = "Use this AppID for Deadlock instead",
-    DefaultValueFactory = _ => 1422450
+    DefaultValueFactory = _ => defaultAppid
 };
 rootCommand.Options.Add(deadlockAppIdOption);
 
 Option<string> runModeOption = new("--run-mode")
 {
     Description = "Run mode",
+    DefaultValueFactory = _ => "server"
 };
 rootCommand.Options.Add(runModeOption);
 
@@ -37,7 +43,9 @@ rootCommand.Options.Add(deadlockPathOption);
 
 var argResults = rootCommand.Parse(args);
 
-var runMode = argResults.GetRequiredValue(runModeOption);
+var runMode = argResults.GetValue(runModeOption);
+
+var deadlockPath = GetAutoFolder();
 
 return runMode switch
 {
@@ -46,43 +54,117 @@ return runMode switch
     "mugshot" => RunMugshot(),
     "autofolder" => RunAutoFolder(),
     "validatefolder" => RunValidateFolder(),
+    "server" => RunServer(),
     _ => 3
 };
 
-int RunValidateFolder()
+int RunServer()
 {
-    var (_, _) = GetVpk(argResults, tryAutoFind: false);
+    var listener = new HttpListener();
+    const string url = "http://localhost:51072/";
+    listener.Prefixes.Add(url);
+    listener.Start();
+    var listenTask = HandleIncomingConnections(listener);
+    listenTask.GetAwaiter().GetResult();
+    
+    listener.Close();
     return 0;
 }
 
-(Package, IFileLoader) GetVpk(ParseResult argResults, bool tryAutoFind = true)
+async Task HandleIncomingConnections(HttpListener listener)
 {
-    var deadlockPath = "";
+    while (true)
+    {
+        var ctx = await listener.GetContextAsync();
 
-    if (argResults.GetValue(deadlockPathOption) is not null)
-    {
-        deadlockPath = argResults.GetValue(deadlockPathOption);
+        var req = ctx.Request;
+        var resp = ctx.Response;
+
+        switch (req)
+        {
+            case { HttpMethod: "POST", Url.AbsolutePath: "/set-folder" }:
+                using (var reader = new StreamReader(req.InputStream))
+                {
+                    var path = reader.ReadToEnd();
+                    var tuple = GetVpk(path, tryAutoFind: false);
+                    resp.ContentType = "text/plain";
+                    resp.ContentEncoding = Encoding.UTF8;
+                    if (tuple is not null)
+                    {
+                        deadlockPath = path;
+                        var success = $"Path set to {deadlockPath}.";
+                        resp.StatusCode = (int)HttpStatusCode.OK;
+                        resp.ContentLength64 = success.Length;
+                        await resp.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(success).AsMemory(0, success.Length));
+                    }
+                    else
+                    {
+                        var failed = $"Path {deadlockPath} not found";
+                        resp.StatusCode = (int)HttpStatusCode.NotFound;
+                        resp.ContentLength64 = failed.Length;
+                        await resp.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(failed).AsMemory(0, failed.Length));
+                    }
+                }
+                resp.Close();
+                break;
+            case { HttpMethod: "GET", Url: not null } when VoiceFileRegex().IsMatch(req.Url.AbsolutePath):
+            {
+                var voiceFile = GetVo(req.Url.AbsolutePath.Replace("/", ""));
+                if (voiceFile is not null)
+                {
+                    resp.StatusCode = (int)HttpStatusCode.OK;
+                    resp.ContentType = "audio/mpeg";
+                    resp.ContentLength64 = voiceFile.LongLength;
+                    await resp.OutputStream.WriteAsync(voiceFile);
+                }
+                else
+                {
+                    const string responseText = "Could not find requested voice file";
+                    resp.StatusCode = (int)HttpStatusCode.NotFound;
+                    resp.ContentType = "text/plain";
+                    resp.ContentEncoding = Encoding.UTF8;
+                    resp.ContentLength64 = responseText.Length;
+                
+                    await resp.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(responseText).AsMemory(0, responseText.Length));
+                }
+                resp.Close();
+                break;
+            }
+        }
     }
-    else if (tryAutoFind)
+} 
+
+int RunValidateFolder()
+{
+    var valueTuple = GetVpk(argResults.GetValue(deadlockPathOption), argResults.GetValue(deadlockAppIdOption), tryAutoFind: false);
+    return valueTuple.HasValue ? 0 : 1;
+}
+
+(Package, IFileLoader)? GetVpk(string? path, int appId = defaultAppid, bool tryAutoFind = true)
+{
+
+    if (path is null && tryAutoFind)
     {
-        var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
+        var deadlock = GameFolderLocator.FindSteamGameByAppId(appId);
         if (deadlock.HasValue)
         {
-            deadlockPath = deadlock.Value.GamePath;
+            path = deadlock.Value.GamePath;
         }
     }
 
-    if (string.IsNullOrEmpty(deadlockPath))
+    if (string.IsNullOrEmpty(path))
     {
-        throw new FileNotFoundException(
-            "Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
+        return null;
+        // throw new FileNotFoundException(
+        //     "Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
     }
 
-    var vpkPath = Path.Join(deadlockPath, "game/citadel/pak01_dir.vpk");
+    var vpkPath = Path.Join(path, "game/citadel/pak01_dir.vpk");
 
     if (!Path.Exists(vpkPath))
     {
-        throw new FileNotFoundException($"Could not find VPK file at {vpkPath}");
+        return null;
+        // throw new FileNotFoundException($"Could not find VPK file at {vpkPath}");
     }
 
     var vpk = new Package();
@@ -93,15 +175,29 @@ int RunValidateFolder()
 
 int RunAutoFolder()
 {
-    var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
-    if (deadlock == null) return 1;
-    Console.Write(deadlock.Value.GamePath);
+    var path = GetAutoFolder();
+    if (path is null)
+    {
+        return 1;
+    }
+    Console.Write(path);
     return 0;
+}
+
+string? GetAutoFolder()
+{
+    var deadlock = GameFolderLocator.FindSteamGameByAppId(argResults.GetValue(deadlockAppIdOption));
+    return deadlock?.GamePath;
 }
 
 int RunMugshot()
 {
-    var (vpk, _) = GetVpk(argResults);
+    var tuple = GetVpk(deadlockPath);
+    if (tuple is null)
+    {
+        return 1;
+    }
+    var (vpk, _) = tuple.Value;
     var entries = vpk.Entries!["vtex_c"];
     var file = entries.First(e => e.GetFullPath()
         .Equals($"panorama/images/heroes/{argResults.GetRequiredValue(heroCodeOption)}_sm_psd.vtex_c"));
@@ -125,7 +221,12 @@ int RunMugshot()
 
 int RunConvo()
 {
-    var (vpk, fileLoader) = GetVpk(argResults);
+    var tuple = GetVpk(deadlockPath);
+    if (tuple is null)
+    {
+        return 1;
+    }
+    var (vpk, fileLoader) = tuple.Value;
     var entries = vpk.Entries!["vcd_c"];
     var convos = entries.Select(e => ParseConversation(e, vpk, fileLoader)).ToList();
     Console.Write(Serialize(new ConversationsRecord(Conversations: convos),
@@ -136,21 +237,36 @@ int RunConvo()
 
 int RunVo()
 {
-    var (vpk, fileLoader) = GetVpk(argResults);
-    var requestedVoiceFile = argResults.GetRequiredValue(voiceFileOption);
+    var result = GetVo(argResults.GetRequiredValue(voiceFileOption));
+    if (result is null)
+    {
+        return 4;
+    }
+    Console.OpenStandardOutput().Write(result);
+    return 0;
+}
+
+byte[]? GetVo(string requestedVoiceFile)
+{
+    var tuple = GetVpk(deadlockPath);
+    if (tuple is null)
+    {
+        return null;
+    }
+    var (vpk, fileLoader) = tuple.Value;
     var soundFiles = vpk.Entries!["vsnd_c"];
     var file = soundFiles.First(s => requestedVoiceFile.StartsWith(Path.GetFileNameWithoutExtension(s.FileName)));
     var stream = vpk.GetMemoryMappedStreamIfPossible(file);
     using var resource = new Resource();
     resource.Read(stream);
     var contentFile = FileExtract.Extract(resource, fileLoader);
-    if (contentFile.Data is null)
-    {
-        return 4;
-    }
-
-    Console.OpenStandardOutput().Write(contentFile.Data);
-    return 0;
+    return contentFile.Data;
+    // if (contentFile.Data is null)
+    // {
+    //     return 4;
+    // }
+    //
+    // Console.OpenStandardOutput().Write(contentFile.Data);
 }
 
 static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoader fileLoader)
@@ -170,4 +286,10 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
             return list;
         });
     return new Conversation(Path.GetFileNameWithoutExtension(entry.FileName), dialogs);
+}
+
+partial class Program
+{
+    [GeneratedRegex("/[A-Za-z0-9_]+")]
+    private static partial Regex VoiceFileRegex();
 }
