@@ -266,7 +266,25 @@ byte[]? GetVo(string requestedVoiceFile)
     }
     var (vpk, fileLoader) = tuple.Value;
     var soundFiles = vpk.Entries!["vsnd_c"];
-    var file = soundFiles.First(s => requestedVoiceFile.StartsWith(Path.GetFileNameWithoutExtension(s.FileName)));
+    Console.WriteLine(string.Join(",", soundFiles.Where(s => s.FileName.Contains("alt_01")).Select(s => s.FileName).ToList()));
+    var voiceFileName = requestedVoiceFile.Trim();
+    PackageEntry? file = null;
+    while (file is null && voiceFileName.Length > 0)
+    {
+        var current = soundFiles.FirstOrDefault(s => s.FileName.Equals(voiceFileName));
+        if (current is not null)
+        {
+            file = current;
+        }
+        else
+        {
+            voiceFileName = voiceFileName[..voiceFileName.LastIndexOf('_')];
+        }
+    }
+    if (file is null || voiceFileName.Length == 0)
+    {
+        return null;
+    }
     var stream = vpk.GetMemoryMappedStreamIfPossible(file);
     using var resource = new Resource();
     resource.Read(stream);
