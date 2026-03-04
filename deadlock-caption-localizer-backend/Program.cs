@@ -45,7 +45,18 @@ var argResults = rootCommand.Parse(args);
 
 var runMode = argResults.GetValue(runModeOption);
 
-var deadlockPath = GetAutoFolder();
+var deadlockPath = GetFolder(argResults);
+
+string? GetFolder(ParseResult parseResult)
+{
+    var manualPath = parseResult.GetValue(deadlockPathOption);
+    if (manualPath is not null && RunValidateFolder() == 0)
+    {
+        return manualPath;
+    }
+
+    return GetAutoFolder();
+}
 
 return runMode switch
 {

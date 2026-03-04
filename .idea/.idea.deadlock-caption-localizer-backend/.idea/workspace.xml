@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36c32957-fc23-4404-995b-c65621846fd3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +32,7 @@
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Conversation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Dialog.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
   <component name="KubernetesApiProvider"><![CDATA[{
   "isMigrated": true
 }]]></component>
@@ -47,6 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Project.convo test.executor": "Debug",
     ".NET Project.deadlock-caption-localizer-backend.executor": "Run",
     "HTTP Request.rest-api_1 | #1.executor": "Run",
     "HTTP Request.rest-api_1 | #2.executor": "Run",
@@ -76,7 +77,28 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected=".NET Project.deadlock-caption-localizer-backend">
+  <component name="RunManager" selected=".NET Project.convo test">
+    <configuration name="convo test" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Release/net10.0/deadlock-caption-localizer-backend" />
+      <option name="PROGRAM_PARAMETERS" value="--run-mode convo --deadlock-path &quot;$USER_HOME$/Library/Application Support/CrossOver/Bottles/Steam/drive_c/Program Files (x86)/Steam/steamapps/common/Deadlock&quot;" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Release/net10.0" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value="net10.0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
     <configuration name="deadlock-caption-localizer-backend" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/deadlock-caption-localizer-backend/bin/Release/net10.0/deadlock-caption-localizer-backend" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -106,6 +128,7 @@
     </configuration>
     <list>
       <item itemvalue=".NET Project.deadlock-caption-localizer-backend" />
+      <item itemvalue=".NET Project.convo test" />
       <item itemvalue="HTTP Request.rest-api_1 | #1" />
       <item itemvalue="HTTP Request.rest-api_1 | #2" />
     </list>
@@ -124,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1770725823026</updated>
       <workItem from="1770725824906" duration="15607000" />
-      <workItem from="1772625591683" duration="2801000" />
+      <workItem from="1772625591683" duration="2963000" />
     </task>
     <task id="LOCAL-00001" summary="Versão inicial?">
       <option name="closed" value="true" />
@@ -150,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771244851538</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="server mode">
+      <option name="closed" value="true" />
+      <created>1772628415992</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772628415992</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +194,8 @@
     <MESSAGE value="Versão inicial?" />
     <MESSAGE value="Add autofolder mode." />
     <MESSAGE value="Add validatefolder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add validatefolder" />
+    <MESSAGE value="server mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="server mode" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -192,6 +224,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs</url>
+          <line>223</line>
+          <properties documentPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" containingFunctionPresentation="Local function 'RunConvo'">
+            <startOffsets>
+              <option value="6946" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6979" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
