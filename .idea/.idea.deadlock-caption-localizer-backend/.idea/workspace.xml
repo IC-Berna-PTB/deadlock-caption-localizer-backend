@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36c32957-fc23-4404-995b-c65621846fd3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +27,7 @@
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Conversation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Dialog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///nix/store/c305hbrc735iivdkz5dzwzsg0dk3syyk-dotnet-sdk-10.0.102/share/dotnet/sdk/10.0.102/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_10_default.globalconfig" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///var/folders/3j/fzj8_xy503xdmxr_n_bp54m80000gn/T/SourceGeneratedDocuments/2123040C17875E1D371166A1/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -147,7 +146,7 @@
       <updated>1770725823026</updated>
       <workItem from="1770725824906" duration="15607000" />
       <workItem from="1772625591683" duration="8740000" />
-      <workItem from="1772706989983" duration="2380000" />
+      <workItem from="1772706989983" duration="3596000" />
     </task>
     <task id="LOCAL-00001" summary="Versão inicial?">
       <option name="closed" value="true" />
@@ -197,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772631351622</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Finish first version">
+      <option name="closed" value="true" />
+      <created>1772714597563</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772714597563</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +219,8 @@
     <MESSAGE value="Add validatefolder" />
     <MESSAGE value="server mode" />
     <MESSAGE value="Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes" />
+    <MESSAGE value="Finish first version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish first version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -247,10 +255,10 @@
           <line>243</line>
           <properties documentPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" containingFunctionPresentation="Local function 'RunConvo'">
             <startOffsets>
-              <option value="7606" />
+              <option value="7629" />
             </startOffsets>
             <endOffsets>
-              <option value="7639" />
+              <option value="7662" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="16" />

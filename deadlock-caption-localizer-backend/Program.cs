@@ -132,7 +132,7 @@ async Task HandleIncomingConnections(HttpListener listener)
                 break;
             case { HttpMethod: "GET", Url: not null } when VoiceFileRegex().IsMatch(req.Url.AbsolutePath):
             {
-                var voiceFile = GetVo(req.Url.AbsolutePath.Replace("/", ""));
+                var voiceFile = GetVo(VoiceFileRegex().Match(req.Url.AbsolutePath).Groups[1].Value);
                 if (voiceFile is not null)
                 {
                     resp.StatusCode = (int)HttpStatusCode.OK;
@@ -321,6 +321,6 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
 
 partial class Program
 {
-    [GeneratedRegex("/audio/[A-Za-z0-9_]+")]
+    [GeneratedRegex("/audio/([A-Za-z0-9_]+)")]
     private static partial Regex VoiceFileRegex();
 }
