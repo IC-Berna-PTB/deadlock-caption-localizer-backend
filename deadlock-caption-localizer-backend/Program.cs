@@ -72,10 +72,22 @@ return runMode switch
 int RunServer()
 {
     var listener = new HttpListener();
-    const string url = "http://localhost:51072/";
+    var rawUrl = Environment.GetEnvironmentVariable("SERVER_URL") ?? "http://localhost:51072/";
+    var url = rawUrl.EndsWith('/') ?  rawUrl : rawUrl + "/";
     listener.Prefixes.Add(url);
     listener.Start();
+    if (deadlockPath is null)
+    {
+        Console.WriteLine("Deadlock path could not be found.\n" +
+                          "Please start the application with the argument --deadlock-path <deadlock-path>, with the path in quotes\n" +
+                          "(e.g. --deadlock-path \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Deadlock\")");
+        return 1;
+    }
+
+    Console.WriteLine($"Using Deadlock install in {deadlockPath}");
     var listenTask = HandleIncomingConnections(listener);
+    Console.WriteLine("Server up at http://localhost:51072");
+    Console.WriteLine("Remember to grab the extension as well!");
     listenTask.GetAwaiter().GetResult();
     
     listener.Close();
@@ -166,8 +178,6 @@ int RunValidateFolder()
     if (string.IsNullOrEmpty(path))
     {
         return null;
-        // throw new FileNotFoundException(
-        //     "Could not find Deadlock installed in the system. Use --deadlock-path [path] to set the path to the game install folder.");
     }
 
     var vpkPath = Path.Join(path, "game/citadel/pak01_dir.vpk");
@@ -175,7 +185,6 @@ int RunValidateFolder()
     if (!Path.Exists(vpkPath))
     {
         return null;
-        // throw new FileNotFoundException($"Could not find VPK file at {vpkPath}");
     }
 
     var vpk = new Package();
@@ -266,7 +275,6 @@ byte[]? GetVo(string requestedVoiceFile)
     }
     var (vpk, fileLoader) = tuple.Value;
     var soundFiles = vpk.Entries!["vsnd_c"];
-    Console.WriteLine(string.Join(",", soundFiles.Where(s => s.FileName.Contains("alt_01")).Select(s => s.FileName).ToList()));
     var voiceFileName = requestedVoiceFile.Trim();
     PackageEntry? file = null;
     while (file is null && voiceFileName.Length > 0)
@@ -290,12 +298,6 @@ byte[]? GetVo(string requestedVoiceFile)
     resource.Read(stream);
     var contentFile = FileExtract.Extract(resource, fileLoader);
     return contentFile.Data;
-    // if (contentFile.Data is null)
-    // {
-    //     return 4;
-    // }
-    //
-    // Console.OpenStandardOutput().Write(contentFile.Data);
 }
 
 static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoader fileLoader)
@@ -319,6 +321,6 @@ static Conversation ParseConversation(PackageEntry entry, Package vpk, IFileLoad
 
 partial class Program
 {
-    [GeneratedRegex("/[A-Za-z0-9_]+")]
+    [GeneratedRegex("/audio/[A-Za-z0-9_]+")]
     private static partial Regex VoiceFileRegex();
 }

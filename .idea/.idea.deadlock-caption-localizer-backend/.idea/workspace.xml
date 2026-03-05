@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="36c32957-fc23-4404-995b-c65621846fd3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/deadlock-caption-localizer-backend.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,16 +23,17 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43957861852e43b1871cb84733f680defc00/96/9e8de9ae/DuperSerializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5abfc2f9674a4781aabbad089c04d62e1046310/fa/625faf3d/Environment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1be5113c1332b6477b2a69997e467967719f50add6f78eb26aed6976d3a55/FileExtract.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/43e6b55865ebc8ae58b391cc5f658f5cb0c48969db96f348da3816aeb8b1e5/SymbolResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Conversation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Dialog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///nix/store/c305hbrc735iivdkz5dzwzsg0dk3syyk-dotnet-sdk-10.0.102/share/dotnet/sdk/10.0.102/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_10_default.globalconfig" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -54,6 +57,7 @@
     "XThreadsFramesViewSplitterKey": "0.40381283",
     "git-widget-placeholder": "main",
     "grid.search.filter.rows": "true",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
@@ -142,7 +146,8 @@
       <option name="presentableId" value="Default" />
       <updated>1770725823026</updated>
       <workItem from="1770725824906" duration="15607000" />
-      <workItem from="1772625591683" duration="5594000" />
+      <workItem from="1772625591683" duration="8740000" />
+      <workItem from="1772706989983" duration="2380000" />
     </task>
     <task id="LOCAL-00001" summary="Versão inicial?">
       <option name="closed" value="true" />
@@ -184,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772628846846</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixes">
+      <option name="closed" value="true" />
+      <created>1772631351622</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772631351622</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,13 +244,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs</url>
-          <line>234</line>
+          <line>243</line>
           <properties documentPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" containingFunctionPresentation="Local function 'RunConvo'">
             <startOffsets>
-              <option value="7191" />
+              <option value="7606" />
             </startOffsets>
             <endOffsets>
-              <option value="7224" />
+              <option value="7639" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="16" />
