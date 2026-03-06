@@ -7,6 +7,8 @@
     <list default="true" id="36c32957-fc23-4404-995b-c65621846fd3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.deadlock-caption-localizer-backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patch.patch" beforeDir="false" afterPath="$PROJECT_DIR$/patch.patch" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +21,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "IC-Berna-PTB"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/IC-Berna-PTB/deadlock-caption-localizer-backend.git",
+    "accountId": "312ee8de-0fbc-4bd4-9854-0a884ece8225"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43957861852e43b1871cb84733f680defc00/96/9e8de9ae/DuperSerializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5abfc2f9674a4781aabbad089c04d62e1046310/fa/625faf3d/Environment.cs" root0="FORCE_HIGHLIGHTING" />
@@ -27,7 +41,7 @@
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Conversation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Dialog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///nix/store/c305hbrc735iivdkz5dzwzsg0dk3syyk-dotnet-sdk-10.0.102/share/dotnet/sdk/10.0.102/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_10_default.globalconfig" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file:///var/folders/3j/fzj8_xy503xdmxr_n_bp54m80000gn/T/SourceGeneratedDocuments/2123040C17875E1D371166A1/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../folders/3j/fzj8_xy503xdmxr_n_bp54m80000gn/T/SourceGeneratedDocuments/2123040C17875E1D371166A1/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -42,25 +56,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.convo test.executor": "Debug",
-    ".NET Project.deadlock-caption-localizer-backend.executor": "Run",
-    "HTTP Request.rest-api_1 | #1.executor": "Run",
-    "HTTP Request.rest-api_1 | #2.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "XThreadsFramesViewSplitterKey": "0.40381283",
-    "git-widget-placeholder": "main",
-    "grid.search.filter.rows": "true",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.convo test.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Project.deadlock-caption-localizer-backend.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.rest-api_1 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.rest-api_1 | #2.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.40381283&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;grid.search.filter.rows&quot;: &quot;true&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunDashboard">
     <option name="configurationStatuses">
       <map>
@@ -204,7 +218,31 @@
       <option name="project" value="LOCAL" />
       <updated>1772714597563</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add FF extension">
+      <option name="closed" value="true" />
+      <created>1772794147317</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1772794147317</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add generation script">
+      <option name="closed" value="true" />
+      <created>1772794231248</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1772794231248</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Edit generation script">
+      <option name="closed" value="true" />
+      <created>1772794305869</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1772794305869</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,7 +258,10 @@
     <MESSAGE value="server mode" />
     <MESSAGE value="Fixes" />
     <MESSAGE value="Finish first version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish first version" />
+    <MESSAGE value="Add FF extension" />
+    <MESSAGE value="add generation script" />
+    <MESSAGE value="Edit generation script" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edit generation script" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -252,13 +293,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs</url>
-          <line>243</line>
+          <line>249</line>
           <properties documentPath="$PROJECT_DIR$/deadlock-caption-localizer-backend/Program.cs" containingFunctionPresentation="Local function 'RunConvo'">
             <startOffsets>
-              <option value="7629" />
+              <option value="7867" />
             </startOffsets>
             <endOffsets>
-              <option value="7662" />
+              <option value="7900" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="16" />

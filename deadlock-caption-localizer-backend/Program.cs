@@ -81,6 +81,10 @@ int RunServer()
         Console.WriteLine("Deadlock path could not be found.\n" +
                           "Please start the application with the argument --deadlock-path <deadlock-path>, with the path in quotes\n" +
                           "(e.g. --deadlock-path \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Deadlock\")");
+        Console.WriteLine("Press ESC to stop and close.");
+        while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
+        {
+        }
         return 1;
     }
 
@@ -88,6 +92,8 @@ int RunServer()
     var listenTask = HandleIncomingConnections(listener);
     Console.WriteLine("Server up at http://localhost:51072");
     Console.WriteLine("Remember to grab the extension as well!");
+    Console.WriteLine("Press Ctrl+C or close the window to stop.");
+
     listenTask.GetAwaiter().GetResult();
     
     listener.Close();
